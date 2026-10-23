@@ -1,0 +1,1289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RemoteHire | Find Remote Jobs Worldwide</title>
+
+<style>
+:root {
+  --blue: #285cf6;
+  --navy: #102244;
+  --muted: #63738e;
+  --bg: #f1f5fb;
+  --border: #dce5f1;
+  --green: #07835b;
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  color: var(--navy);
+  background: var(--bg);
+  line-height: 1.6;
+}
+
+button, input, select, textarea {
+  font: inherit;
+}
+
+button { cursor: pointer; }
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.container {
+  max-width: 1180px;
+  margin: auto;
+  padding: 0 20px;
+}
+
+/* NAVIGATION */
+header {
+  background: white;
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.navbar {
+  min-height: 75px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+}
+
+.logo {
+  font-size: 27px;
+  font-weight: 800;
+  color: var(--blue);
+}
+
+.logo span { color: var(--navy); }
+
+.nav-links {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+/* BUTTONS */
+.btn {
+  padding: 12px 20px;
+  border: 0;
+  border-radius: 8px;
+  background: var(--blue);
+  color: white;
+  font-weight: bold;
+}
+
+.btn:hover { background: #1949ce; }
+
+.btn-outline {
+  background: white;
+  color: var(--blue);
+  border: 1px solid var(--blue);
+}
+
+/* HERO */
+.hero {
+  background: linear-gradient(120deg, #112548, #285ba6);
+  color: white;
+  padding: 80px 0;
+  text-align: center;
+}
+
+.hero h1 {
+  font-size: clamp(32px, 5vw, 52px);
+  margin: 0 0 15px;
+}
+
+.hero h1 span { color: #a8c7ff; }
+
+.hero p {
+  max-width: 650px;
+  margin: 0 auto 25px;
+  color: #dce8fc;
+}
+
+.search-box {
+  display: flex;
+  gap: 10px;
+  background: white;
+  padding: 12px;
+  border-radius: 12px;
+  max-width: 850px;
+  margin: auto;
+}
+
+.search-box input,
+.search-box select {
+  flex: 1;
+  min-width: 0;
+  padding: 13px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+}
+
+.stats { margin-top: 25px; }
+
+/* SECTIONS */
+section { padding: 60px 0; }
+
+.section-title {
+  font-size: 29px;
+  margin: 0 0 10px;
+}
+
+.subtitle {
+  color: var(--muted);
+  margin-bottom: 28px;
+}
+
+.white { background: white; }
+
+/* DIGITAL SKILLS */
+.skill-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 15px;
+}
+
+.skill-card {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 22px;
+  text-align: left;
+  color: var(--navy);
+}
+
+.skill-card:hover {
+  border-color: var(--blue);
+  box-shadow: 0 6px 20px #00000010;
+}
+
+.skill-icon {
+  font-size: 29px;
+  display: block;
+}
+
+.skill-card strong {
+  display: block;
+  margin-top: 10px;
+}
+
+.skill-card small { color: var(--muted); }
+
+/* JOB SECTION */
+.job-layout {
+  display: grid;
+  grid-template-columns: 250px 1fr;
+  gap: 24px;
+}
+
+.filters,
+.job-card {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 13px;
+}
+
+.filters {
+  padding: 24px;
+  height: fit-content;
+}
+
+.filter-group { margin-bottom: 20px; }
+
+.filter-group label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 8px;
+  font-size: 14px;
+}
+
+.filter-group select {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: white;
+}
+
+.job-list {
+  display: grid;
+  gap: 17px;
+}
+
+.job-card { padding: 24px; }
+
+.job-header {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}
+
+.company-icon {
+  width: 54px;
+  height: 54px;
+  border-radius: 12px;
+  background: #e8efff;
+  color: var(--blue);
+  display: grid;
+  place-items: center;
+  font-size: 24px;
+}
+
+.job-header h3 { margin: 0; }
+
+.company-name {
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 17px 0;
+}
+
+.tag {
+  background: #edf3ff;
+  color: #2553b6;
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.description {
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.job-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  flex-wrap: wrap;
+  border-top: 1px solid var(--border);
+  margin-top: 18px;
+  padding-top: 18px;
+}
+
+.salary {
+  color: var(--green);
+  font-weight: bold;
+}
+
+/* APPLICATION MODAL */
+.modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: #07152bd9;
+  z-index: 100;
+  justify-content: center;
+  align-items: center;
+  padding: 15px;
+}
+
+.modal.active { display: flex; }
+
+.modal-content {
+  background: white;
+  border-radius: 15px;
+  padding: 28px;
+  width: 100%;
+  max-width: 620px;
+  max-height: 95vh;
+  overflow-y: auto;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.close-modal {
+  border: none;
+  background: #edf2f9;
+  padding: 7px 13px;
+  border-radius: 8px;
+  font-size: 22px;
+}
+
+.application-form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+}
+
+.form-group label {
+  display: block;
+  font-size: 13px;
+  font-weight: bold;
+  margin-bottom: 6px;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 12px;
+}
+
+.form-group textarea {
+  min-height: 100px;
+}
+
+.full-width {
+  grid-column: 1 / -1;
+}
+
+.notice {
+  background: #eef4ff;
+  padding: 12px;
+  border-radius: 8px;
+  color: #274779;
+  font-size: 13px;
+  margin-bottom: 20px;
+}
+
+#formStatus { font-size: 14px; }
+
+/* FOOTER */
+footer {
+  background: #07172e;
+  color: #b9c9df;
+  padding: 40px 0;
+  text-align: center;
+}
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  .skill-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .job-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .navbar {
+    flex-direction: column;
+    padding: 15px;
+  }
+
+  .search-box {
+    flex-direction: column;
+  }
+
+  .skill-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .application-form {
+    grid-template-columns: 1fr;
+  }
+
+  .full-width {
+    grid-column: auto;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- NAVIGATION -->
+<header>
+  <nav class="container navbar">
+    <a href="#" class="logo">
+      Remote<span>Hire</span>
+    </a>
+
+    <div class="nav-links">
+      <a href="#jobs">Find Jobs</a>
+      <a href="#skills">Digital Skills</a>
+      <a href="#about">About</a>
+      <a href="#apply">Apply</a>
+    </div>
+  </nav>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="container">
+    <h1>Find Your Dream <span>Remote Job</span></h1>
+
+    <p>
+      Discover remote career opportunities across
+      20 digital skills and apply with your CV or résumé.
+    </p>
+
+    <form class="search-box" id="searchForm">
+      <input
+        id="searchInput"
+        type="search"
+        placeholder="Search jobs or digital skills"
+        aria-label="Search jobs"
+      >
+
+      <select id="locationFilter">
+        <option value="all">All Locations</option>
+        <option>Worldwide</option>
+        <option>USA</option>
+        <option>Europe</option>
+        <option>Africa</option>
+      </select>
+
+      <button class="btn" type="submit">
+        Search Jobs
+      </button>
+    </form>
+
+    <div class="stats">
+      <strong id="totalJobs">0</strong>
+      sample remote job opportunities
+    </div>
+  </div>
+</section>
+
+<!-- DIGITAL SKILLS -->
+<section id="skills" class="white">
+  <div class="container">
+    <h2 class="section-title">Explore 20 Digital Skills</h2>
+
+    <p class="subtitle">
+      Choose a digital skill to explore related jobs.
+    </p>
+
+    <div class="skill-grid" id="skillGrid"></div>
+  </div>
+</section>
+
+<!-- JOB LISTINGS -->
+<section id="jobs">
+  <div class="container">
+    <h2 class="section-title">Latest Remote Jobs</h2>
+
+    <p class="subtitle">
+      Find jobs by digital skill, employment type,
+      experience level and location.
+    </p>
+
+    <div class="job-layout">
+
+      <!-- FILTERS -->
+      <aside class="filters">
+        <h3>Filter Jobs</h3>
+
+        <div class="filter-group">
+          <label for="categoryFilter">Digital Skill</label>
+          <select id="categoryFilter">
+            <option value="all">All Digital Skills</option>
+          </select>
+        </div>
+
+        <div class="filter-group">
+          <label for="typeFilter">Employment Type</label>
+          <select id="typeFilter">
+            <option value="all">All Employment Types</option>
+          </select>
+        </div>
+
+        <div class="filter-group">
+          <label for="levelFilter">Experience Level</label>
+          <select id="levelFilter">
+            <option value="all">All Experience Levels</option>
+          </select>
+        </div>
+
+        <button class="btn btn-outline" id="resetFilters">
+          Reset Filters
+        </button>
+      </aside>
+
+      <!-- JOB RESULTS -->
+      <div>
+        <p id="resultCount" aria-live="polite"></p>
+
+        <div class="job-list" id="jobList"></div>
+
+        <div style="text-align:center;margin-top:25px;">
+          <button class="btn" id="loadMore" hidden>
+            Load More Jobs
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about" class="white">
+  <div class="container">
+    <h2 class="section-title">Why Choose RemoteHire?</h2>
+
+    <p class="subtitle">
+      Explore digital careers, discover flexible work
+      opportunities, and prepare your job applications.
+    </p>
+  </div>
+</section>
+
+<!-- APPLY INFORMATION -->
+<section id="apply">
+  <div class="container">
+    <h2 class="section-title">Apply for Remote Jobs</h2>
+
+    <p>
+      Browse a job and click Apply Now to open
+      the application form and attach your CV.
+    </p>
+
+    <p class="subtitle">
+      This demonstration does not send applications
+      to real employers.
+    </p>
+
+    <a class="btn" href="#jobs">Browse Jobs</a>
+  </div>
+</section>
+
+<!-- APPLICATION MODAL -->
+<div
+  class="modal"
+  id="applicationModal"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="applicationTitle"
+  aria-hidden="true"
+>
+  <div class="modal-content">
+
+    <div class="modal-header">
+      <h2 id="applicationTitle">Job Application</h2>
+
+      <button
+        class="close-modal"
+        id="closeModal"
+        type="button"
+        aria-label="Close application"
+      >
+        &times;
+      </button>
+    </div>
+
+    <p id="selectedJob"></p>
+
+    <div class="notice">
+      Demonstration form: your information and CV
+      will not be sent to an employer or stored online.
+    </div>
+
+    <form id="applicationForm">
+
+      <div class="application-form">
+
+        <div class="form-group">
+          <label for="fullName">Full Name *</label>
+          <input
+            id="fullName"
+            name="fullName"
+            required
+            autocomplete="name"
+          >
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email Address *</label>
+          <input
+            id="email"
+            name="email"
+            type="email"
+            required
+            autocomplete="email"
+          >
+        </div>
+
+        <div class="form-group">
+          <label for="phone">Phone Number *</label>
+          <input
+            id="phone"
+            name="phone"
+            type="tel"
+            required
+          >
+        </div>
+
+        <div class="form-group">
+          <label for="country">Country *</label>
+          <input
+            id="country"
+            name="country"
+            required
+          >
+        </div>
+
+        <div class="form-group full-width">
+          <label for="portfolio">
+            Portfolio or LinkedIn URL
+          </label>
+
+          <input
+            id="portfolio"
+            name="portfolio"
+            type="url"
+            placeholder="https://example.com"
+          >
+        </div>
+
+        <div class="form-group full-width">
+          <label for="coverLetter">Cover Letter *</label>
+
+          <textarea
+            id="coverLetter"
+            name="coverLetter"
+            required
+            minlength="20"
+            placeholder="Explain why you are qualified."
+          ></textarea>
+        </div>
+
+        <div class="form-group full-width">
+          <label for="resume">Upload CV / Résumé *</label>
+
+          <input
+            id="resume"
+            name="resume"
+            type="file"
+            accept=".pdf,.doc,.docx"
+            required
+          >
+
+          <small>PDF, DOC or DOCX. Maximum 5 MB.</small>
+        </div>
+
+        <div class="form-group full-width">
+          <label>
+            <input
+              type="checkbox"
+              id="consent"
+              required
+            >
+            I understand this is a demo application.
+          </label>
+        </div>
+
+        <div class="full-width">
+          <button class="btn" type="submit">
+            Validate Application
+          </button>
+        </div>
+
+      </div>
+
+      <p id="formStatus" role="status" aria-live="polite"></p>
+
+    </form>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <h2>RemoteHire</h2>
+    <p>Explore Digital Skills and Remote Careers</p>
+    <p>All jobs displayed are fictional demonstration listings.</p>
+    <p>&copy; <span id="year"></span> RemoteHire</p>
+  </div>
+</footer>
+
+<script>
+"use strict";
+
+/* ====================================
+   20 DIGITAL SKILLS
+==================================== */
+
+const skills = [
+  ["Website Design", "🌐", "Website Designer"],
+  ["Web Development", "💻", "Web Developer"],
+  ["UI/UX Design", "🎨", "UI/UX Designer"],
+  ["Graphic Design", "🖌️", "Graphic Designer"],
+  ["SEO", "🔎", "SEO Specialist"],
+  ["Social Media Marketing", "📱", "Social Media Manager"],
+  ["Paid Advertising", "📣", "Paid Ads Specialist"],
+  ["Content Writing", "✍️", "Content Writer"],
+  ["Copywriting", "📝", "Copywriter"],
+  ["Video Editing", "🎬", "Video Editor"],
+  ["Motion Graphics", "🎞️", "Motion Graphics Designer"],
+  ["Data Analysis", "📊", "Data Analyst"],
+  ["Cybersecurity", "🔐", "Cybersecurity Analyst"],
+  ["Cloud Computing", "☁️", "Cloud Engineer"],
+  ["AI Automation", "🤖", "AI Automation Specialist"],
+  ["Email Marketing", "✉️", "Email Marketing Specialist"],
+  ["Virtual Assistance", "📅", "Virtual Assistant"],
+  ["Customer Support", "🎧", "Customer Support Specialist"],
+  ["Sales & Lead Generation", "🤝", "Sales Representative"],
+  ["E-commerce Management", "🛒", "E-commerce Manager"]
+];
+
+/* ====================================
+   JOB OPTIONS
+==================================== */
+
+const employmentTypes = [
+  "Full-time",
+  "Part-time",
+  "Contract",
+  "Freelance"
+];
+
+const experienceLevels = [
+  "Entry Level",
+  "Mid Level",
+  "Senior Level"
+];
+
+const locations = [
+  "Worldwide",
+  "USA",
+  "Europe",
+  "Africa"
+];
+
+/* ====================================
+   GENERATE 240 SAMPLE JOBS
+==================================== */
+
+const jobs = [];
+
+let jobId = 1;
+
+skills.forEach((skill, skillIndex) => {
+
+  employmentTypes.forEach((type, typeIndex) => {
+
+    experienceLevels.forEach((level, levelIndex) => {
+
+      const baseSalary =
+        [900, 2200, 4200][levelIndex] +
+        skillIndex * 55 +
+        typeIndex * 110;
+
+      const maxSalary =
+        baseSalary + [700, 1300, 2100][levelIndex];
+
+      jobs.push({
+        id: jobId++,
+        category: skill[0],
+        icon: skill[1],
+        title: skill[2],
+        company: "Demo Digital Studio " + (skillIndex + 1),
+        type: type,
+        level: level,
+        location: locations[
+          (skillIndex + typeIndex + levelIndex) % 4
+        ],
+        salary:
+          "$" + baseSalary.toLocaleString() +
+          " - $" + maxSalary.toLocaleString() +
+          " / month (illustrative)",
+        description:
+          "Work remotely with a digital team, " +
+          "complete professional projects, and " +
+          "develop your career in " + skill[0] + "."
+      });
+
+    });
+
+  });
+
+});
+
+/* ====================================
+   HELPER FUNCTIONS
+==================================== */
+
+const get = id => document.getElementById(id);
+
+function createElement(tag, className, text) {
+  const element = document.createElement(tag);
+
+  if (className) element.className = className;
+
+  if (text !== undefined) {
+    element.textContent = text;
+  }
+
+  return element;
+}
+
+function populateSelect(selectId, values) {
+  const select = get(selectId);
+
+  values.forEach(value => {
+    const option = document.createElement("option");
+
+    option.value = value;
+    option.textContent = value;
+
+    select.appendChild(option);
+  });
+}
+
+/* ====================================
+   POPULATE FILTERS
+==================================== */
+
+populateSelect(
+  "categoryFilter",
+  skills.map(skill => skill[0])
+);
+
+populateSelect("typeFilter", employmentTypes);
+populateSelect("levelFilter", experienceLevels);
+
+/* ====================================
+   DISPLAY SKILL CATEGORIES
+==================================== */
+
+skills.forEach(skill => {
+
+  const card = createElement("button", "skill-card");
+  card.type = "button";
+
+  card.append(
+    createElement("span", "skill-icon", skill[1]),
+    createElement("strong", "", skill[0]),
+    createElement("small", "", "12 sample jobs")
+  );
+
+  card.addEventListener("click", () => {
+    get("categoryFilter").value = skill[0];
+
+    visibleJobs = 12;
+    displayJobs();
+
+    get("jobs").scrollIntoView({
+      behavior: "smooth"
+    });
+  });
+
+  get("skillGrid").appendChild(card);
+
+});
+
+/* ====================================
+   JOB CARD GENERATOR
+==================================== */
+
+function createJobCard(job) {
+
+  const card = createElement("article", "job-card");
+
+  const header = createElement("div", "job-header");
+
+  const icon = createElement(
+    "div",
+    "company-icon",
+    job.icon
+  );
+
+  const companyInfo = document.createElement("div");
+
+  companyInfo.append(
+    createElement("h3", "", job.title),
+    createElement("p", "company-name", job.company)
+  );
+
+  header.append(icon, companyInfo);
+
+  const tags = createElement("div", "tags");
+
+  [
+    job.category,
+    job.type,
+    job.level,
+    job.location
+  ].forEach(value => {
+    tags.appendChild(
+      createElement("span", "tag", value)
+    );
+  });
+
+  const description = createElement(
+    "p",
+    "description",
+    job.description
+  );
+
+  const footer = createElement("div", "job-footer");
+
+  const salary = createElement(
+    "span",
+    "salary",
+    job.salary
+  );
+
+  const applyButton = createElement(
+    "button",
+    "btn",
+    "Apply Now"
+  );
+
+  applyButton.type = "button";
+
+  applyButton.addEventListener("click", () => {
+    openApplication(job);
+  });
+
+  footer.append(salary, applyButton);
+
+  card.append(
+    header,
+    tags,
+    description,
+    footer
+  );
+
+  return card;
+}
+
+/* ====================================
+   FILTER JOBS
+==================================== */
+
+let visibleJobs = 12;
+
+function displayJobs() {
+
+  const search = get("searchInput")
+    .value.toLowerCase().trim();
+
+  const category = get("categoryFilter").value;
+  const type = get("typeFilter").value;
+  const level = get("levelFilter").value;
+  const location = get("locationFilter").value;
+
+  const filteredJobs = jobs.filter(job => {
+
+    const matchesSearch = [
+      job.title,
+      job.category,
+      job.company,
+      job.description
+    ].join(" ").toLowerCase().includes(search);
+
+    const matchesCategory =
+      category === "all" || job.category === category;
+
+    const matchesType =
+      type === "all" || job.type === type;
+
+    const matchesLevel =
+      level === "all" || job.level === level;
+
+    const matchesLocation =
+      location === "all" || job.location === location;
+
+    return (
+      matchesSearch &&
+      matchesCategory &&
+      matchesType &&
+      matchesLevel &&
+      matchesLocation
+    );
+
+  });
+
+  const list = get("jobList");
+  list.replaceChildren();
+
+  get("resultCount").textContent =
+    filteredJobs.length + " demonstration jobs found";
+
+  if (filteredJobs.length === 0) {
+
+    list.appendChild(
+      createElement(
+        "p",
+        "",
+        "No matching jobs found. Try resetting your filters."
+      )
+    );
+
+  } else {
+
+    const fragment = document.createDocumentFragment();
+
+    filteredJobs.slice(0, visibleJobs).forEach(job => {
+      fragment.appendChild(createJobCard(job));
+    });
+
+    list.appendChild(fragment);
+
+  }
+
+  get("loadMore").hidden =
+    filteredJobs.length <= visibleJobs;
+}
+
+/* ====================================
+   FILTER EVENTS
+==================================== */
+
+[
+  "categoryFilter",
+  "typeFilter",
+  "levelFilter",
+  "locationFilter"
+].forEach(id => {
+
+  get(id).addEventListener("change", () => {
+    visibleJobs = 12;
+    displayJobs();
+  });
+
+});
+
+get("searchInput").addEventListener("input", () => {
+  visibleJobs = 12;
+  displayJobs();
+});
+
+get("searchForm").addEventListener("submit", event => {
+  event.preventDefault();
+
+  displayJobs();
+
+  get("jobs").scrollIntoView({
+    behavior: "smooth"
+  });
+});
+
+/* ====================================
+   RESET FILTERS
+==================================== */
+
+get("resetFilters").addEventListener("click", () => {
+
+  get("categoryFilter").value = "all";
+  get("typeFilter").value = "all";
+  get("levelFilter").value = "all";
+  get("locationFilter").value = "all";
+  get("searchInput").value = "";
+
+  visibleJobs = 12;
+  displayJobs();
+
+});
+
+/* ====================================
+   LOAD MORE JOBS
+==================================== */
+
+get("loadMore").addEventListener("click", () => {
+
+  visibleJobs += 12;
+  displayJobs();
+
+});
+
+/* ====================================
+   APPLICATION MODAL
+==================================== */
+
+let selectedJob = null;
+let previousFocus = null;
+
+function openApplication(job) {
+
+  selectedJob = job;
+  previousFocus = document.activeElement;
+
+  get("applicationForm").reset();
+  get("formStatus").textContent = "";
+
+  get("selectedJob").textContent =
+    job.title + " - " + job.company;
+
+  get("applicationModal").classList.add("active");
+  get("applicationModal").setAttribute(
+    "aria-hidden", "false"
+  );
+
+  document.body.style.overflow = "hidden";
+  get("closeModal").focus();
+}
+
+function closeApplication() {
+
+  get("applicationModal").classList.remove("active");
+  get("applicationModal").setAttribute(
+    "aria-hidden", "true"
+  );
+
+  document.body.style.overflow = "";
+  selectedJob = null;
+
+  if (previousFocus && previousFocus.isConnected) {
+    previousFocus.focus();
+  }
+}
+
+get("closeModal").addEventListener(
+  "click",
+  closeApplication
+);
+
+get("applicationModal").addEventListener(
+  "click",
+  event => {
+
+    if (event.target === get("applicationModal")) {
+      closeApplication();
+    }
+
+  }
+);
+
+document.addEventListener("keydown", event => {
+
+  const modal = get("applicationModal");
+
+  if (!modal.classList.contains("active")) return;
+
+  if (event.key === "Escape") {
+    closeApplication();
+    return;
+  }
+
+  if (event.key === "Tab") {
+
+    const focusable = Array.from(
+      modal.querySelectorAll(
+        "button:not([disabled]), input:not([disabled]), textarea:not([disabled])"
+      )
+    ).filter(element => element.getClientRects().length);
+
+    if (!focusable.length) return;
+
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+
+    if (event.shiftKey && document.activeElement === first) {
+      event.preventDefault();
+      last.focus();
+    } else if (
+      !event.shiftKey &&
+      document.activeElement === last
+    ) {
+      event.preventDefault();
+      first.focus();
+    }
+  }
+});
+
+/* ====================================
+   CV UPLOAD AND FORM VALIDATION
+==================================== */
+
+get("applicationForm").addEventListener(
+  "submit",
+  event => {
+
+    event.preventDefault();
+
+    const status = get("formStatus");
+    const resume = get("resume").files[0];
+
+    if (!selectedJob) {
+      status.textContent = "Please select a job.";
+      status.style.color = "red";
+      return;
+    }
+
+    if (!resume) {
+      status.textContent = "Please upload your CV.";
+      status.style.color = "red";
+      return;
+    }
+
+    const extension = resume.name
+      .split(".")
+      .pop()
+      .toLowerCase();
+
+    const allowedTypes = ["pdf", "doc", "docx"];
+
+    if (!allowedTypes.includes(extension)) {
+      status.textContent =
+        "Only PDF, DOC and DOCX files are allowed.";
+
+      status.style.color = "red";
+      return;
+    }
+
+    if (resume.size > 5 * 1024 * 1024) {
+      status.textContent =
+        "Your CV must be smaller than 5 MB.";
+
+      status.style.color = "red";
+      return;
+    }
+
+    if (resume.size === 0) {
+      status.textContent =
+        "The selected CV file is empty.";
+
+      status.style.color = "red";
+      return;
+    }
+
+    status.style.color = "green";
+
+    status.textContent =
+      "Your application for " +
+      selectedJob.title +
+      " passed validation. This is a demonstration: " +
+      "your application and CV have not been sent or saved.";
+
+  }
+);
+
+/* ====================================
+   INITIALIZE WEBSITE
+==================================== */
+
+get("totalJobs").textContent = jobs.length;
+
+get("year").textContent = new Date().getFullYear();
+
+displayJobs();
+
+</script>
+
+</body>
+</html>
